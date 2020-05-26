@@ -1,0 +1,55 @@
+from tkinter import *
+import RPi.GPIO as GPIO
+from time import sleep
+GPIO.setmode(GPIO.BOARD)
+
+# Set pins to get output
+GPIO.setup(11, GPIO.OUT)
+GPIO.setup(12, GPIO.OUT)
+GPIO.setup(13, GPIO.OUT)
+
+top = Tk()  
+top.geometry("280x200")  
+radio = IntVar()
+lbl = Label(text = "click on radio button to onn different leds:")  
+lbl.pack()
+
+
+def selection():
+    if(radio.get() == 1):
+     ##   GPIO.output(11, GPIO.HIGH)
+        GPIO.output(11, GPIO.HIGH)
+        GPIO.output(12, GPIO.LOW)
+        GPIO.output(13, GPIO.LOW)
+    elif (radio.get() ==2):
+        GPIO.output(12, GPIO.HIGH)
+        GPIO.output(11, GPIO.LOW)
+        GPIO.output(13, GPIO.LOW)
+    elif (radio.get() ==3):
+            GPIO.output(13, GPIO.HIGH)
+            GPIO.output(11, GPIO.LOW)
+            GPIO.output(12, GPIO.LOW)
+    elif (radio.get() ==4):
+        print ("wow")
+    
+ 
+R1 = Radiobutton(top, text="YELLOW", variable=radio, value=1,  
+      command=selection)
+
+R1.pack( anchor = W )  
+  
+R2 = Radiobutton(top, text="RED", variable=radio, value=2,  
+                  command=selection)  
+R2.pack( anchor = W )  
+  
+R3 = Radiobutton(top, text="WHITE", variable=radio, value=3,  
+                  command=selection)  
+R3.pack( anchor = W)
+
+B1=Button(top, text='EXIT', command=quit)
+B1.pack( anchor = W)
+
+label = Label(top)  
+label.pack()  
+top.mainloop()  
+   
